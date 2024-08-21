@@ -6,7 +6,7 @@
 #define RESET "\033[0m"
 #define BOLD "\033[1m"
 
-
+// Dynamic Colors based on terminal theme
 #define COLOR1 "\033[38;5;2m"
 #define COLOR2 "\033[38;5;4m"
 #define COLOR3 "\033[38;5;6m"
@@ -41,28 +41,18 @@ int main() {
     int has_cpu = exec_cmd("grep -m1 'model name' /proc/cpuinfo | cut -d ':' -f2-", cpu, sizeof(cpu));
     int has_gpu = exec_cmd("lspci | grep -i vga | cut -d ':' -f3-", gpu, sizeof(gpu));
 
-    // Displaying the fetched information
-    printf(BOLD COLOR1 "██████╗ ██╗     ██╗   ██╗███████╗███████╗███████╗████████╗ ██████╗██╗  ██╗\n" RESET);
-    printf(BOLD COLOR1 "██╔══██╗██║     ██║   ██║██╔════╝██╔════╝██╔════╝╚══██╔══╝██╔════╝██║  ██║\n" RESET);
-    printf(BOLD COLOR1 "██████╔╝██║     ██║   ██║█████╗  █████╗  █████╗     ██║   ██║     ███████║\n" RESET);
-    printf(BOLD COLOR1 "██╔══██╗██║     ██║   ██║██╔══╝  ██╔══╝  ██╔══╝     ██║   ██║     ██╔══██║\n" RESET);
-    printf(BOLD COLOR1 "██████╔╝███████╗╚██████╔╝███████╗██║     ███████╗   ██║   ╚██████╗██║  ██║\n" RESET);
-    printf(BOLD COLOR1 "╚═════╝ ╚══════╝ ╚═════╝ ╚══════╝╚═╝     ╚══════╝   ╚═╝    ╚═════╝╚═╝  ╚═╝\n" RESET);
-    printf(COLOR2 "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n" RESET);
+    // Displaying the fetched information with ASCII art on the left
+    printf(COLOR1 "╔══════════════════════════════════╗" RESET "   " COLOR3 "User:       " RESET "%s@%s\n", user, hostname);
+    printf(COLOR1 "║██████╗ ██╗     ██╗   ██╗███████╗ ║" RESET "   " COLOR3 "OS:         " RESET "%s\n", os);
+    printf(COLOR1 "║██╔══██╗██║     ██║   ██║██╔════╝ ║" RESET "   " COLOR3 "Kernel:     " RESET "%s\n", kernel);
+    printf(COLOR1 "║██████╔╝██║     ██║   ██║█████╗   ║" RESET "   " COLOR3 "Uptime:     " RESET "%s\n", uptime);
+    printf(COLOR1 "║██╔══██╗██║     ██║   ██║██╔══╝   ║" RESET "   " COLOR3 "Shell:      " RESET "%s\n", shell);
+    printf(COLOR1 "║██████╔╝███████╗╚██████╔╝███████╗ ║" RESET "   " COLOR3 "Resolution: " RESET "%s\n", resolution);
+    printf(COLOR1 "╚═════╝ ╚══════╝ ╚═════╝ ╚══════╝  ╚═" RESET "   " COLOR3 "Memory:     " RESET "%s\n", memory);
+    printf(COLOR1 "╚══════════════════════════════════╝" RESET "   " COLOR3 "CPU:        " RESET "%s\n", cpu);
+    if (has_gpu) printf("                                   " COLOR3 "GPU:        " RESET "%s\n", gpu);
 
-    if (has_user && has_hostname) printf(COLOR3 "User:       " RESET "%s@%s\n", user, hostname);
-    if (has_os) printf(COLOR3 "OS:         " RESET "%s\n", os);
-    if (has_kernel) printf(COLOR3 "Kernel:     " RESET "%s\n", kernel);
-    if (has_uptime) printf(COLOR3 "Uptime:     " RESET "%s\n", uptime);
-    if (has_shell) printf(COLOR3 "Shell:      " RESET "%s\n", shell);
-    if (has_resolution) printf(COLOR3 "Resolution: " RESET "%s\n", resolution);
-    if (has_memory) printf(COLOR3 "Memory:     " RESET "%s\n", memory);
-    if (has_cpu) printf(COLOR3 "CPU:        " RESET "%s\n", cpu);
-    if (has_gpu) printf(COLOR3 "GPU:        " RESET "%s\n", gpu);
-
-    printf(COLOR2 "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n" RESET);
-    printf(BOLD COLOR1 "I need sleep\n" RESET);
+    printf(COLOR2 "════════════════════════════════════" RESET "   " COLOR3 "I need sleep\n" RESET);
 
     return 0;
 }
-//i need sleep
